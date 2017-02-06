@@ -26,7 +26,9 @@
         <p>
           example: <code>{{website}}/new/</code> - <code>https://www.google.com</code>
         </p>
-        
+        <div>
+          <blockquote class="alert-success" id="displayShortUrl"></blockquote>
+        </div>
           <form action="/new" method="POST">
             
             <div class="form-group">
@@ -41,9 +43,7 @@
             </div>
           </form>
         
-        <div>
-          <blockquote class="alert-success" id="displayShortUrl"></blockquote>
-        </div>
+        
         <h3>Example Usage:</h3>
         <a href="{{website}}/iSGT7">
           {{website}}/iSGT7
@@ -66,10 +66,17 @@
             
             data = JSON.parse(data);
             
-            var shortUrl = "{{website}}/" + data.shortUrl;
+            var html;
+            if (!data.shortUrl){
+              html = "<h3 style='color: red'>Error: Invalid URL</h3>";
+            } else {
+              html = "<h3>Shortened url:</h3>\n{{website}}/" + data.shortUrl;
+            }
+            
+            
             
             var target = document.getElementById("displayShortUrl");
-            target.innerHTML = "<h3>Shortened url:</h3>\n" + shortUrl;
+            target.innerHTML = html;
           });
         }
        
