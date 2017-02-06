@@ -1,0 +1,24 @@
+{
+  "name": "url-shortener",
+  "version": "1.0.0",
+  "description": "Url shortener",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "url",
+    "shortener",
+    "api",
+    "microservice"
+  ],
+  "author": "l mua",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.16.0",
+    "consolidate": "^0.14.5",
+    "express": "^4.14.1",
+    "mongoose": "^4.8.1",
+    "nunjucks": "^3.0.0"
+  }
+}

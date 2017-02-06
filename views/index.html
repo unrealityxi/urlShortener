@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+
+<html>
+
+   <head>
+      <title>URL Shortener</title>
+      
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+     <link rel="stylesheet" href="/static/styles/styles.css">
+     
+   </head>
+
+   <body>
+      <div class="container">
+        <h2>API Project: URL Shortener Microservice</h2>
+        
+        <blockquote class="alert-info">
+          <h3>User Story: </h3>
+        <ol>
+          <li>I can POST a URL to <code>{{website}}/new</code> and i will receive a shortened URL in the JSON response.<br>Example : <code>{"url":"www.google.com","shortenedUrl" : ou8xp}</code></li>
+          <li>If I pass an invalid URL that doesn't follow the <code>http(s)://www.example.com(/more/routes)</code> format, the JSON response will contain an error like <code>{"error":"invalid URL"}</code><br>
+          <li>When I visit the shortened URL, it will redirect me to my original link.</li>
+        </ol>
+        </blockquote>
+        <h3>Short URL Creation: </h3>
+        <p>
+          example: <code>{{website}}/new/</code> - <code>https://www.google.com</code>
+        </p>
+        
+          <form action="/new" method="POST">
+            
+            <div class="form-group">
+            
+              <label for="url">URL to be shortened: </label>
+            
+           
+              <input id="url" type="text" name="url" value="https://www.google.com"><br>
+            
+            <input type="submit" value="JSON response" class="btn btn-info">
+            <button type="button" id="sendUrl" class="btn btn-info">Hyperlink response </button><br>
+            </div>
+          </form>
+        
+        <div>
+          <blockquote class="alert-success" id="displayShortUrl"></blockquote>
+        </div>
+        <h3>Example Usage:</h3>
+        <a href="{{website}}/iSGT7">
+          {{website}}/iSGT7
+        </a>
+
+        <h3>Will Redirect to:</h3>
+        <p>https://forum.freecodecamp.com</p>
+      </div>
+     
+     
+     
+     <script>
+       document.getElementById("sendUrl").addEventListener("click", urlDirect);
+       
+        function urlDirect(e) {
+          e.preventDefault();
+          var input = document.getElementById("url").value;
+          
+          postAjax("/new","url=" + input, function(data){
+            
+            data = JSON.parse(data);
+            
+            var shortUrl = "{{website}}/" + data.shortUrl;
+            
+            var target = document.getElementById("displayShortUrl");
+            target.innerHTML = "<h3>Shortened url:</h3>\n" + shortUrl;
+          });
+        }
+       
+       
+       function postAjax(url, data, success) {
+	    var params = typeof data == 'string' ? data : Object.keys(data).map(
+	            function(k){ return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]) }
+	        ).join('&');
+	
+	    var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+	    xhr.open('POST', url);
+	    xhr.onreadystatechange = function() {
+	        if (xhr.readyState>3 && xhr.status==200) { success(xhr.responseText); }
+	    };
+	    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	    xhr.send(params);
+	    return xhr;
+	}
+     </script>
+    
+   </body>
+  
+
+</html>

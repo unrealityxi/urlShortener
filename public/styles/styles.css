@@ -1,0 +1,18 @@
+body {
+  background: #eee;
+  
+}
+
+blockquote:empty {
+  display: none;
+}
+
+form {
+  margin: 30px 0;
+}
+
+#url {
+  border: none;
+  width: 200px;
+  text-align: center;
+}
